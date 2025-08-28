@@ -14,7 +14,7 @@ function App() {
         <Route path='/' element={<Home />}></Route>
         <Route path='/register' element={<Register />}></Route>
         <Route path='/login' element={<Login />}></Route>
-        <Route path='/createtweet' element={<CreateTweet />}></Route>
+        <Route path='/create-tweet' element={<CreateTweet />}></Route>
         <Route path='/tweet-analytics' element={<TweetAnalytics />}></Route>
       </Routes>
     </>

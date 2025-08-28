@@ -1,12 +1,10 @@
 import { Router } from "express";
 import { registerSchema } from "../validation/user.js";
 import bcrypt from 'bcrypt'
-import { PrismaClient } from "@prisma/client";
-
+import prisma from "../utils/prisma.js";
 
 const registerRouter = Router()
 
-const prisma = new PrismaClient()
 
 registerRouter.post('/', async (req, res) => {
     const { name, password, email} = req.body
