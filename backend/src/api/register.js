@@ -6,39 +6,40 @@ import prisma from "../utils/prisma.js";
 const registerRouter = Router()
 
 
-registerRouter.post('/', async (req, res) => {
-    const { name, password, email} = req.body
+registerRouter.post("/", async (req, res) => {
+  const parseResult = registerSchema.safeParse(req.body);
 
-    const parseResult = registerSchema.safeParse({name, password, email})
-    
-    if(!parseResult) {
-        return res.status(400).json({
-            erorrs: parseResult.erorr.erorrs.map(err => ({
-                path: err.path[0],
-                message: err.message
-            }))
-        })
+  if (!parseResult.success) {
+    const errors = parseResult.error.flatten().fieldErrors;
+    return res.status(400).json({ errors });
+  }
+
+  const { fullName, email, password } = parseResult.data;
+
+  try {
+
+    const existingUser = await prisma.user.findUnique({ where: { email } });
+    if (existingUser) {
+      return res.status(400).json({ errors: { email: ["Email is already registered"] } });
     }
 
-    const userData = parseResult.data;
-    try {
-        const hashedPassword = await bcrypt.hash(userData.password, 10);
+    // Hash password
+    const hashedPassword = await bcrypt.hash(password, 10);
 
-        const newUser = await prisma.user.create({
-            data: { 
-                name, 
-                email,
-                password: hashedPassword 
-            }
-        })
+    // Create user
+    const user = await prisma.user.create({
+      data: {
+        name: fullName,
+        email,
+        password: hashedPassword,
+      },
+    });
 
-        res.status(200).json({
-        message: "User registered successfully ✅",
-        user: { name, email }, 
-        })
-    } catch (err) {
-        res.status(500).json({ error: "Something went wrong" });
-    }
-})
+    res.status(200).json({ message: "Registration successful"});
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ errors: { general: "Server error" } });
+  }
+});
 
 export default registerRouter;
