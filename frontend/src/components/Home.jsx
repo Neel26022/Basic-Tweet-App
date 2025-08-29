@@ -46,7 +46,7 @@ const Home = () => {
         {/* Call to Action */}
         <section className="mt-16 text-center">
           <a
-            href="/create"
+            href="/tweet/create"
             className="px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg shadow-md transition duration-300"
           >
             Create Your First Tweet

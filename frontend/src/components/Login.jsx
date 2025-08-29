@@ -21,7 +21,7 @@ const Login = () => {
 
       console.log("Login successful:", data);
       localStorage.setItem("token", data.token);
-      window.location.href = "/create-tweet"; 
+      window.location.href = "/tweets"; 
     } catch (err) {
       if (err.response && err.response.data) {
         setError(err.response.data.message || "Login failed");

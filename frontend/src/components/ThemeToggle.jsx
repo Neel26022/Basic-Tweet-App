@@ -1,21 +1,25 @@
 import React, { useState, useEffect } from "react";
 
 const ThemeToggle = () => {
-  // Initialize with system preference or check existing class
+  
   const [isDark, setDark] = useState(() => {
-    return document.documentElement.classList.contains('dark');
+    const stored = localStorage.getItem("theme");
+    if (stored) return stored === "dark";
+    // fallback: check system preference
+    return window.matchMedia("(prefers-color-scheme: dark)").matches;
   });
 
   useEffect(() => {
-    // For Tailwind v4, we need to toggle the dark class on html element
     const html = document.documentElement;
-    
+
     if (isDark) {
       html.classList.add("dark");
-      html.style.colorScheme = 'dark';
+      html.style.colorScheme = "dark";
+      localStorage.setItem("theme", "dark");
     } else {
       html.classList.remove("dark");
-      html.style.colorScheme = 'light';
+      html.style.colorScheme = "light";
+      localStorage.setItem("theme", "light");
     }
   }, [isDark]);
 
@@ -37,4 +41,4 @@ const ThemeToggle = () => {
   );
 };
 
-export default ThemeToggle; 
+export default ThemeToggle;

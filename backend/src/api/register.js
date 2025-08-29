@@ -7,8 +7,11 @@ const registerRouter = Router()
 
 
 registerRouter.post("/", async (req, res) => {
-  const parseResult = registerSchema.safeParse(req.body);
 
+    console.log(req.body)
+
+  const parseResult = registerSchema.safeParse(req.body);
+    console.log(parseResult)
   if (!parseResult.success) {
     const errors = parseResult.error.flatten().fieldErrors;
     return res.status(400).json({ errors });

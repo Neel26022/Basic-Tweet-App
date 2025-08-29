@@ -19,18 +19,18 @@ const Navbar = () => {
   return (
     <nav className="w-full h-16 text-black bg-white shadow flex items-center px-4 justify-between dark:bg-black dark:text-white transition-colors duration-300">
       {/* Logo */}
-      <div className="text-2xl font-bold mr-8 italic">Tweet</div>
+      <div className="text-2xl font-bold mr-8 italic cursor-pointer"><a href="/">Tweet</a></div>
 
       {/* Menu Items */}
       <ul className="ml-3 flex space-x-6 text-lg">
-        <li className="cursor-pointer font-semibold px-4 py-2 rounded-lg transition-all duration-200 hover:bg-black hover:text-green-400 dark:hover:bg-[rgb(13,29,56)] dark:hover:text-green-400">
-          Home
+        <li className="cursor-pointer font-semibold px-2 py-2 rounded-lg transition-all duration-200 hover:bg-black hover:text-green-400 dark:hover:bg-[rgb(13,29,56)] dark:hover:text-green-400">
+          <a href="/">Home</a>
         </li>
         <li className="cursor-pointer font-semibold px-4 py-2 rounded-lg transition-all duration-200 hover:bg-[rgb(13,29,56)] hover:text-green-400 dark:hover:bg-[rgb(13,29,56)] dark:hover:text-green-400">
-          Hello
+          <a href="/tweets">Tweets</a>
         </li>
         <li className="cursor-pointer font-semibold px-4 py-2 rounded-lg transition-all duration-200 hover:bg-black hover:text-green-400 dark:hover:bg-[rgb(13,29,56)] dark:hover:text-green-400">
-          Create Tweet
+          <a href="/tweet/create">Create-Tweet</a>
         </li>
       </ul>
 
